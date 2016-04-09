@@ -1,0 +1,10 @@
+---
+
+  - name: BUILD (ONE-TIME) IRF FOR SPINE SWITCHES
+    hosts: leaves
+    gather_facts: no
+    connection: local
+
+    roles:
+      - irf
+

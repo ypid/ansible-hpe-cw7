@@ -1,0 +1,9 @@
+---
+
+priority: 4
+member_id: 1
+new_member_id: 1
+domain_id: 1
+descr: They used to call me HP1
+irf_p1: ['FortyGigE1/0/1']
+irf_p2: ['FortyGigE1/0/2']

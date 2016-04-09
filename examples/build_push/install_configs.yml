@@ -1,0 +1,23 @@
+---
+
+  - name: PUSH CLEAN CONFIGS TO LEAF SWITCHES
+    hosts: leaves
+    gather_facts: no
+    connection: local
+
+    tasks:
+
+      - name: BUILD CONFIGURATION FILES
+        template: src=templates/leaf.j2 dest=configs/{{ inventory_hostname }}.cfg
+        tags: build
+
+      - name: INSTALL AND ACTIVATE CONFIG FILE AS NEW RUNNING CONFIG
+        comware_install_config:
+          config_file='./configs/{{ inventory_hostname }}.cfg'
+          diff_file='./configs/diffs/{{ inventory_hostname }}.diff'
+          commit_changes=false
+          username={{ username }}
+          password={{ password }}
+          hostname={{ inventory_hostname }}
+        tags: push
+

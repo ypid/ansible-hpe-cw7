@@ -1,0 +1,74 @@
+---
+
+# In the case that an IRF, or partial IRF,
+# has already been configured, the management IP
+# of the slave members will not be reachable.
+# So we ignore errors and register 'data' to keep track
+# of the failure status of each switch.
+# This failure status can be used to skip later tasks
+# by using the 'when' helper module.
+- name: ENSURE NETCONF CONNECTIVITY TO DEVICES
+  wait_for: host={{ inventory_hostname }} port=830 timeout=10
+  ignore_errors: true
+  register: data
+
+# If a switch is assigned a new member id, it needs to be rebooted
+# for the change to take effect.
+# The logic to reboot if there is change and with the reboot parameter
+# set to 'true' is included in the comware_irf_members module.
+- name: ENSURE EACH MEMBER HAS PROPER MEMBER ID REBOOTS IF CHANGED.
+  comware_irf_members:
+    member_id: "{{ member_id }}"
+    new_member_id: "{{ new_member_id }}"
+    state: present
+    reboot: "{{ reboot }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    hostname: "{{ inventory_hostname }}"
+  ignore_errors: true
+  when: "'failed' not in data"
+
+# Probes port 830 (the NETCONF port) on all devices
+# to make sure they are up before continuing.
+- name: WAIT FOR DEVICES TO COME BACK ONLINE AFTER REBOOT
+  wait_for: host={{ inventory_hostname }} port=830
+  when: "'failed' not in data"
+
+# After the switch has the correct member id, we assign priority,
+# description, and domain id.
+- name: ENSURE EACH MEMBER HAS PROPER PRIORITY AND DESCRIPTION AND DOMAIN ID
+  comware_irf_members:
+    member_id: "{{ new_member_id }}"
+    priority: "{{ priority }}"
+    descr: "{{ descr }}"
+    domain_id: "{{ domain_id }}"
+    state: present
+    reboot: "{{ reboot }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    hostname: "{{ inventory_hostname }}"
+  when: "'failed' not in data"
+
+# Here we build the actcual physical-to-irf-port bindings.
+# The important parameters are 'irf_p1' and 'irf_p2', which
+# take in a list of physical interfaces.
+# The activate flag causes the activation to happen immediately.
+- name: IRF PORT CONFIG AND MAPPING
+  comware_irf_ports:
+    member_id: "{{ new_member_id }}"
+    irf_p1: "{{ irf_p1 }}"
+    irf_p2: "{{ irf_p2 }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    hostname: "{{ inventory_hostname }}"
+    removal_override: no
+    activate: "{{ activate }}"
+  when: "'failed' not in data"
+  register: ports
+
+# Non-master IRF members may reboot, so we wait until everything is back up.
+- name: WAIT FOR ALL DEVICES TO COME BACK ONLINE (ASSUMES AT LEAST 1 REBOOT)
+  wait_for: timeout=280
+  when: ports.changed == true
+
+

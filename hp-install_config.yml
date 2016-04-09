@@ -1,0 +1,22 @@
+---
+
+  - name: Example for using install config
+    hosts: hp1
+    gather_facts: no
+    connection: local
+
+    vars:
+      username: hp
+      password: hp123
+
+
+    tasks:
+
+      - name: install config file that will be the new running config
+        comware_install_config:
+          config_file='./configs/demo.cfg'
+          diff_file='./configs/demo-diff.diff'
+          commit_changes=true
+          username={{ username }}
+          password={{ password }}
+          hostname={{ inventory_hostname }}

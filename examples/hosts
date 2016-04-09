@@ -1,0 +1,14 @@
+[all:vars]
+username=hp
+password=hp123
+
+[spine-each]
+hp1
+hp2
+
+[spine-irf]
+hp1
+
+[leaves]
+hp3
+hp4

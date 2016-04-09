@@ -1,0 +1,85 @@
+---
+
+  - name: ENSURE SPINE (IRF) IS CONFIGURED
+    hosts: spine-irf
+    gather_facts: no
+    connection: local
+
+    vars:
+      vlans:
+        - 10
+        - 20
+        - 30
+        - 40
+        - 50
+
+    tasks:
+
+      - name: ENSURE VLANS EXIST
+        comware_vlan: vlanid={{ item }} username={{ username }} password={{ password }} hostname={{ inventory_hostname }}
+        with_items: vlans
+
+      - name: ENSURE SVIs ARE CREATED
+        comware_interface: name="vlan{{ item }}" username={{ username }} password={{ password }} hostname={{ inventory_hostname }}
+        with_items: vlans
+
+
+      - name: ENSURE SVI HAS PROPER IP ADDR
+        comware_ipinterface: name="vlan{{ item }}" addr="10.1.{{ item }}.1" mask=24 username={{ username }} password={{ password }} hostname={{ inventory_hostname }}
+        with_items: vlans
+
+
+      - name: ENSURE INTERFACES ARE BRIDGED
+        comware_interface: name={{ item }} type=bridged username={{ username }} password={{ password }} hostname={{ inventory_hostname }}
+        with_items:
+          - FortyGigE1/0/31
+          - FortyGigE1/0/32
+          - FortyGigE2/0/31
+          - FortyGigE2/0/32
+
+
+      - name: ENSURE BAGG10 IS CREATED --> LEAF1 (HP3)
+        comware_portchannel:
+          group: 10
+          members:
+            - FortyGigE1/0/31
+            - FortyGigE2/0/31
+          type: bridged
+          mode: dynamic
+          lacp_mode: active
+          username: "{{ username }}"
+          password: "{{ password }}"
+          hostname: "{{ inventory_hostname }}"
+          state: present
+
+
+      - name: ENSURE BAGG20 IS CREATED --> LEAF2 (HP4)
+        comware_portchannel:
+          group: 20
+          members:
+            - FortyGigE1/0/32
+            - FortyGigE2/0/32
+          type: bridged
+          mode: dynamic
+          lacp_mode: active
+          username: "{{ username }}"
+          password: "{{ password }}"
+          hostname: "{{ inventory_hostname }}"
+          state: present
+
+      - name: ENSURE VLANS ARE ASSIGNED TO BAGGs
+        comware_switchport: link_type=trunk name={{ item }} permitted_vlans="10,20,30" username={{ username }} password={{ password }} hostname={{ inventory_hostname }}
+        with_items:
+          - br10
+          - br20
+
+      - name: ENSURE INTERFACES ARE ADMIN UP
+        comware_interface: name={{ item }} admin=up username={{ username }} password={{ password }} hostname={{ inventory_hostname }}
+        with_items:
+          - FortyGigE1/0/31
+          - FortyGigE1/0/32
+          - FortyGigE2/0/31
+          - FortyGigE2/0/32
+          - br10
+          - br20
+

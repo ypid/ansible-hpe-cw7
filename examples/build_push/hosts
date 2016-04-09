@@ -1,0 +1,12 @@
+[all:vars]
+username=hp
+password=hp123
+
+[switches]
+hp1
+hp2
+hp3
+
+[leaves]
+hp3
+hp4

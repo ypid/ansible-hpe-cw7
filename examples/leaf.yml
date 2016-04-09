@@ -1,0 +1,68 @@
+---
+
+  - name: ENSURE LEAF SWITCHES ARE CONFIGURED
+    hosts: leaves
+    gather_facts: no
+    connection: local
+
+    vars:
+      vlans:
+        - 10
+        - 20
+        - 30
+
+    tasks:
+
+      - name: ENSURE VLANS EXIST
+        comware_vlan: vlanid={{ item }} username={{ username }} password={{ password }} hostname={{ inventory_hostname }}
+        with_items: vlans
+
+      - name: ENSURE SVIs ARE CREATED
+        comware_interface: name="vlan{{ item }}" username={{ username }} password={{ password }} hostname={{ inventory_hostname }}
+        with_items: vlans
+
+
+      - name: ENSURE SVI HAS PROPER IP ADDR
+        comware_ipinterface: name="vlan{{ item }}" addr="10.1.{{ item }}.100" mask=24 username={{ username }} password={{ password }} hostname={{ inventory_hostname }}
+        with_items: vlans
+        when: inventory_hostname == 'hp3'
+
+      - name: ENSURE THESE INTERFACES ARE ADMIN DOWN (FOR THIS DEMO)
+        comware_interface: name={{ item }} admin=down username={{ username }} password={{ password }} hostname={{ inventory_hostname }}
+        with_items:
+          - FortyGigE1/0/1
+          - FortyGigE1/0/2
+
+      - name: ENSURE INTERFACES ARE BRIDGED
+        comware_interface: name={{ item }} type=bridged username={{ username }} password={{ password }} hostname={{ inventory_hostname }}
+        with_items:
+          - FortyGigE1/0/31
+          - FortyGigE1/0/32
+          - FortyGigE1/0/31
+          - FortyGigE1/0/32
+
+      - name: ENSURE BAGG10 IS CREATED --> SPINE (HP1)
+        comware_portchannel:
+          group: 10
+          members:
+            - FortyGigE1/0/31
+            - FortyGigE1/0/32
+          type: bridged
+          mode: dynamic
+          lacp_mode: active
+          username: "{{ username }}"
+          password: "{{ password }}"
+          hostname: "{{ inventory_hostname }}"
+          state: present
+
+      - name: ENSURE VLANS ARE ASSIGNED TO BAGG
+        comware_switchport: link_type=trunk name=br10 permitted_vlans="10,20,30" username={{ username }} password={{ password }} hostname={{ inventory_hostname }}
+
+      - name: ENSURE INTERFACES ARE ADMIN UP
+        comware_interface: name={{ item }} admin=up username={{ username }} password={{ password }} hostname={{ inventory_hostname }}
+        with_items:
+          - FortyGigE1/0/31
+          - FortyGigE1/0/32
+          - FortyGigE1/0/31
+          - FortyGigE1/0/32
+          - br10

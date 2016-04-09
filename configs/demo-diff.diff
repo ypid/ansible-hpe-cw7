@@ -1,0 +1,461 @@
+#######################################
+########## SUMMARY OF DIFFS ###########
+#######################################
+
+
++flash:/demo.cfg
+-Current configuration
+
+
+#######################################
+FULL DIFFS AS RETURNED BACK FROM SWITCH
+#######################################
+
+
+<HP5930_DEMO_1>display diff current-configuration configfile demo.cfg
+--- Current configuration
++++ flash:/demo.cfg
+@@ -1,221 +1,221 @@
+-#
+- version 7.1.045, ESS 2415
+-#
+- sysname HP5930_DEMO_1
+-#
+- clock protocol none
+-#
+- irf mac-address persistent timer
+- irf auto-update enable
+- undo irf link-delay
+- irf member 1 priority 1
+- irf mode normal
+-#
+- lldp global enable
+-#
+- system-working-mode standard
+- fan prefer-direction slot 1 port-to-power 
+- password-recovery enable
+-#
+-vlan 1
+-#
+- stp global enable
+-#
+-interface NULL0
+-#
+-interface FortyGigE1/0/1
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/2
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/3
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/4
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/5
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/6
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/7
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/8
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/9
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/10
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/11
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/12
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/13
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/14
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/15
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/16
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/17
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/18
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/19
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/20
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/21
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/22
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/23
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/24
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/25
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/26
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/27
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/28
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/29
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/30
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/31
+- port link-mode bridge
+-#
+-interface FortyGigE1/0/32
+- port link-mode bridge
+-#
+-interface M-GigabitEthernet0/0/0
+- ip address 10.1.100.40 255.255.255.0
+-#
+- scheduler logfile size 16
+-#
+-line class aux
+- user-role network-admin
+-#
+-line class vty
+- user-role network-operator
+-#
+-line aux 0
+- user-role network-admin
+-#
+-line vty 0 15
+- authentication-mode scheme
+- user-role network-admin
+- user-role network-operator
+- set authentication password hash $h$6$0pCOOSzAnWNbItO9$KfV0V1Jo1PVFMrG9lelj81GGw4IPX5u2kF6CmRpgOng3Ab1MS7gb84qKmHksuKSLDIr/0/X1Rbq+otiYniGwTg==
+-#
+-line vty 16 63
+- user-role network-admin
+- user-role network-operator
+-#
+- ip route-static 0.0.0.0 0 10.1.100.1
+-#
+- ssh server enable
+- ssh user hp service-type all authentication-type password
+- scp server enable
+-#
+-radius scheme system
+- user-name-format without-domain
+-#
+-domain system
+-#
+- aaa session-limit ftp 16
+- aaa session-limit telnet 16
+- aaa session-limit http 16
+- aaa session-limit ssh 16
+- aaa session-limit https 16
+- domain default enable system
+-#
+-role name level-0
+- description Predefined level-0 role
+-#
+-role name level-1
+- description Predefined level-1 role
+-#
+-role name level-2
+- description Predefined level-2 role
+-#
+-role name level-3
+- description Predefined level-3 role
+-#
+-role name level-4
+- description Predefined level-4 role
+-#
+-role name level-5
+- description Predefined level-5 role
+-#
+-role name level-6
+- description Predefined level-6 role
+-#
+-role name level-7
+- description Predefined level-7 role
+-#
+-role name level-8
+- description Predefined level-8 role
+-#
+-role name level-9
+- description Predefined level-9 role
+-#
+-role name level-10
+- description Predefined level-10 role
+-#
+-role name level-11
+- description Predefined level-11 role
+-#
+-role name level-12
+- description Predefined level-12 role
+-#
+-role name level-13
+- description Predefined level-13 role
+-#
+-role name level-14
+- description Predefined level-14 role
+-#
+-user-group system
+-#
+-local-user hp class manage
+- password hash $h$6$/qN0r/IMnFFHtHRP$osdT3d7AmyPPa/KC0sdu6DCNwSuiNhBzoSGuf+YZxA1yJUOFOTxEH477c5OyA6sm4ZqvOzBLykuqBkT6xIxBlA==
+- service-type ftp
+- service-type ssh http https
+- authorization-attribute user-role network-admin
+- authorization-attribute user-role network-operator
+-#
+- netconf soap http enable
+- netconf ssh server enable
+-#
+-return
++#
++ version 7.1.045, ESS 2415
++#
++ sysname HP5930_DEMO_1
++#
++ clock protocol none
++#
++ irf mac-address persistent timer
++ irf auto-update enable
++ undo irf link-delay
++ irf member 1 priority 1
++ irf mode normal
++#
++ lldp global enable
++#
++ system-working-mode standard
++ fan prefer-direction slot 1 port-to-power
++ password-recovery enable
++#
++vlan 1
++#
++ stp global enable
++#
++interface NULL0
++#
++interface FortyGigE1/0/1
++ port link-mode bridge
++#
++interface FortyGigE1/0/2
++ port link-mode bridge
++#
++interface FortyGigE1/0/3
++ port link-mode bridge
++#
++interface FortyGigE1/0/4
++ port link-mode bridge
++#
++interface FortyGigE1/0/5
++ port link-mode bridge
++#
++interface FortyGigE1/0/6
++ port link-mode bridge
++#
++interface FortyGigE1/0/7
++ port link-mode bridge
++#
++interface FortyGigE1/0/8
++ port link-mode bridge
++#
++interface FortyGigE1/0/9
++ port link-mode bridge
++#
++interface FortyGigE1/0/10
++ port link-mode bridge
++#
++interface FortyGigE1/0/11
++ port link-mode bridge
++#
++interface FortyGigE1/0/12
++ port link-mode bridge
++#
++interface FortyGigE1/0/13
++ port link-mode bridge
++#
++interface FortyGigE1/0/14
++ port link-mode bridge
++#
++interface FortyGigE1/0/15
++ port link-mode bridge
++#
++interface FortyGigE1/0/16
++ port link-mode bridge
++#
++interface FortyGigE1/0/17
++ port link-mode bridge
++#
++interface FortyGigE1/0/18
++ port link-mode bridge
++#
++interface FortyGigE1/0/19
++ port link-mode bridge
++#
++interface FortyGigE1/0/20
++ port link-mode bridge
++#
++interface FortyGigE1/0/21
++ port link-mode bridge
++#
++interface FortyGigE1/0/22
++ port link-mode bridge
++#
++interface FortyGigE1/0/23
++ port link-mode bridge
++#
++interface FortyGigE1/0/24
++ port link-mode bridge
++#
++interface FortyGigE1/0/25
++ port link-mode bridge
++#
++interface FortyGigE1/0/26
++ port link-mode bridge
++#
++interface FortyGigE1/0/27
++ port link-mode bridge
++#
++interface FortyGigE1/0/28
++ port link-mode bridge
++#
++interface FortyGigE1/0/29
++ port link-mode bridge
++#
++interface FortyGigE1/0/30
++ port link-mode bridge
++#
++interface FortyGigE1/0/31
++ port link-mode bridge
++#
++interface FortyGigE1/0/32
++ port link-mode bridge
++#
++interface M-GigabitEthernet0/0/0
++ ip address 10.1.100.40 255.255.255.0
++#
++ scheduler logfile size 16
++#
++line class aux
++ user-role network-admin
++#
++line class vty
++ user-role network-operator
++#
++line aux 0
++ user-role network-admin
++#
++line vty 0 15
++ authentication-mode scheme
++ user-role network-admin
++ user-role network-operator
++ set authentication password hash $h$6$0pCOOSzAnWNbItO9$KfV0V1Jo1PVFMrG9lelj81GGw4IPX5u2kF6CmRpgOng3Ab1MS7gb84qKmHksuKSLDIr/0/X1Rbq+otiYniGwTg==
++#
++line vty 16 63
++ user-role network-admin
++ user-role network-operator
++#
++ ip route-static 0.0.0.0 0 10.1.100.1
++#
++ ssh server enable
++ ssh user hp service-type all authentication-type password
++ scp server enable
++#
++radius scheme system
++ user-name-format without-domain
++#
++domain system
++#
++ aaa session-limit ftp 16
++ aaa session-limit telnet 16
++ aaa session-limit http 16
++ aaa session-limit ssh 16
++ aaa session-limit https 16
++ domain default enable system
++#
++role name level-0
++ description Predefined level-0 role
++#
++role name level-1
++ description Predefined level-1 role
++#
++role name level-2
++ description Predefined level-2 role
++#
++role name level-3
++ description Predefined level-3 role
++#
++role name level-4
++ description Predefined level-4 role
++#
++role name level-5
++ description Predefined level-5 role
++#
++role name level-6
++ description Predefined level-6 role
++#
++role name level-7
++ description Predefined level-7 role
++#
++role name level-8
++ description Predefined level-8 role
++#
++role name level-9
++ description Predefined level-9 role
++#
++role name level-10
++ description Predefined level-10 role
++#
++role name level-11
++ description Predefined level-11 role
++#
++role name level-12
++ description Predefined level-12 role
++#
++role name level-13
++ description Predefined level-13 role
++#
++role name level-14
++ description Predefined level-14 role
++#
++user-group system
++#
++local-user hp class manage
++ password hash $h$6$/qN0r/IMnFFHtHRP$osdT3d7AmyPPa/KC0sdu6DCNwSuiNhBzoSGuf+YZxA1yJUOFOTxEH477c5OyA6sm4ZqvOzBLykuqBkT6xIxBlA==
++ service-type ftp
++ service-type ssh http https
++ authorization-attribute user-role network-admin
++ authorization-attribute user-role network-operator
++#
++ netconf soap http enable
++ netconf ssh server enable
++#
++return
+
