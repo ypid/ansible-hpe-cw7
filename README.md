@@ -2,7 +2,7 @@
 
 This project contains Ansible modules that can be used to automate HP Comware 7 switches.  The modules rely on NETCONF to communicate with the device for making configuration changes and getting operational data back such as LLDP neighbors, OS, serial number, uptime, and active interfaces on the device.
 
-A byproduct of the Ansible modules was the creation of a Python library that is being used to simplify each module, but also streamline communication between each module and the NETCONF interface of each HP COM7 switch.  The library can be found [here](https://github.com/networktocode/pyhpecw7).  While the library is being used for Ansible modules, it can also be used to create standalone applications.
+A byproduct of the Ansible modules was the creation of a Python library that is being used to simplify each module, but also streamline communication between each module and the NETCONF interface of each HP COM7 switch.  The library can be found [here](https://github.com/HPENetworking/pyhpecw7).  While the library is being used for Ansible modules, it can also be used to create standalone applications.
 
   * [Introduction](#introduction)
   * [Modules](#modules)
