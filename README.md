@@ -9,7 +9,7 @@ A byproduct of the Ansible modules was the creation of a Python library that is 
   * [Getting Started](#getting-started)
     * Hands-on Examples
   * [Requirements](#requirements)
-  * [Detailed Docs](http://hp-ansible.readthedocs.org/en/latest/index.html#)
+  * [Detailed Docs](https://hp-ansible.readthedocs.io/en/latest/index.html)
 
 # Modules
 
@@ -59,7 +59,7 @@ Several modules can be used to modify feature level configuration on the HP COM 
 
 # Getting Started
 
-Follow these steps to get started with Ansible.  A few of these steps assume you will be working on an Ubuntu host.  If you are using a MAC or another version of Linux, please check the official Ansible [documentation](http://docs.ansible.com/ansible/intro_installation.html#installation) for help on getting Ansible installed. Most of these steps beyond installation will be the same regardless of version of Linux being used.
+Follow these steps to get started with Ansible.  A few of these steps assume you will be working on an Ubuntu host.  If you are using a MAC or another version of Linux, please check the official Ansible [documentation](https://docs.ansible.com/ansible/intro_installation.html#installation) for help on getting Ansible installed. Most of these steps beyond installation will be the same regardless of version of Linux being used.
 
 ## Update /etc/hosts file
 
@@ -922,7 +922,7 @@ Options (= is mandatory):
 
 When you start using modules, this is a great command line utility to reference to understand the parameters each module supports.  It can be used for not only the HP modules, but also any native Ansible module as well.
 
-**Note:** The docs contained within the `ansible-doc` command line utility for the HP modules are the same docs that can be found on the web [here.](module_docs/module_docs.md) and even better docs can be found [here](http://hp-ansible.readthedocs.org/en/latest/index.html#)
+**Note:** The docs contained within the `ansible-doc` command line utility for the HP modules are the same docs that can be found on the web [here.](module_docs/module_docs.md) and even better docs can be found [here](https://hp-ansible.readthedocs.io/en/latest/index.html)
 
 # Requirements
 
